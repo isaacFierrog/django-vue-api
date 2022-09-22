@@ -5,7 +5,10 @@ from django.db import models
 class Sensor(models.Model):
     modulo = models.ForeignKey(
         'modulo.Modulo',
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name='sensores'
     )
     clave = models.CharField(max_length=100)
     

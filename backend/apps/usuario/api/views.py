@@ -17,12 +17,16 @@ class UsuarioViewSet(ModelViewSet):
     
 class Login(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
+        print(request.data)
         login_serializer = self.serializer_class(
             data=request.data,
             context = {'request': request}
         )
         
+        
+        
         if login_serializer.is_valid():
+            print(login_serializer.validated_data)
             usuario = login_serializer.validated_data['user']
             if usuario.is_active:
                 token, created = Token.objects.get_or_create(user=usuario)
