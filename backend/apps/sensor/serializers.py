@@ -5,5 +5,5 @@ from .models import Sensor
 class SensorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sensor
-        fields = '__all__'
+        fields = ('id', 'clave')
         read_only_fields = ('id',)
