@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h3>{{ modulo.mac }}</h3>
+        <h3>Modulo | {{ modulo.mac }}</h3>
         <p>{{ modulo.mina }} | {{ modulo.area }}</p>
     </div>
 </template>

@@ -1,19 +1,28 @@
-<script setup>
+<script>
 import { RouterView } from 'vue-router'
 import { defineAsyncComponent } from 'vue'
 
-const Navbar = defineAsyncComponent(
-  () => import('./modules/shared/components/Navbar.vue')
-) 
+export default {
+  components: {
+    Navbar: defineAsyncComponent(
+      () => import('./modules/shared/components/Navbar.vue')
+    )
+  },
+  data() {
+    return {
+      links: [
+          { to: '/modulos', name: 'Modulos' },
+          { to: '/usuarios', name: 'Usuarios' }
+      ]
+    }
+  }  
+}
 </script>
 
 <template>
   <div>
-    <!-- <Navbar /> -->
+    <Navbar :links="links"/>
     <RouterView />
   </div>
 </template>
 
-<style scoped>
-
-</style>

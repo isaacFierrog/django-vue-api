@@ -1,17 +1,21 @@
 <template>
     <div>
-        
         <CustomLink 
             v-for="link in links"
             :key="link.to"
             :link="link"/>
-
     </div>
 </template>
 
 <script>
 import { defineAsyncComponent } from 'vue';
 export default {
+    props: {
+        links: {
+            type: Array,
+            required: true
+        }
+    },
     components: {
         CustomLink: defineAsyncComponent(
             () => import('./CustomLink.vue')
@@ -19,10 +23,6 @@ export default {
     },
     data(){
         return {
-            links: [
-                { to: '/modulos', name: 'Modulos' },
-                { to: '/usuarios', name: 'Usuarios' }
-            ]
         }
     }
 }
