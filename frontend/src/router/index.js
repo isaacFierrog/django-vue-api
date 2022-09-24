@@ -5,26 +5,20 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/modulos',
-      name: 'modulos',
-      component: () => import('../modules/modulos/layouts/ModulosLayout.vue'),
+      path: '',
+      redirect: '/autenticacion'
+    },
+    {
+      path: '/autenticacion',
+      name: 'autenticacion',
+      component: () => import('../modules/auth/layouts/AuthLayout.vue'),
       children: [
         {
           path: '',
-          name: 'modulos-listar',
-          component: () => import('../modules/modulos/views/ListadoView.vue')
+          name: 'login',
+          component: () => import('../modules/auth/views/LoginView.vue')
         }
       ]
-    },
-    {
-      path: '/usuarios',
-      name: 'usuarios',
-      component: () => import('../modules/usuarios/layouts/UsuariosLayout.vue')
-    },
-    {
-      path: '/:pathMatch(.*)*',
-      name: 'not-found',
-      component: () => import('../modules/shared/views/NotFoundView.vue')
     }
   ]
 })

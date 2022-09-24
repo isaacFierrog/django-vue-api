@@ -9,7 +9,7 @@ const Navbar = defineAsyncComponent(
 
 <template>
   <div>
-    <Navbar />
+    <!-- <Navbar /> -->
     <RouterView />
   </div>
 </template>
