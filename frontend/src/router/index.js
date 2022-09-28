@@ -31,6 +31,11 @@ const router = createRouter({
           component: () => import('../modules/modulos/views/ListadoView.vue')
         },
         {
+          path: ':moduloId',
+          name: 'modulos-detalles',
+          component: () => import('../modules/modulos/views/DetallesView.vue')
+        },
+        {
           path: 'crear',
           name: 'modulos-crear',
           component: () => import('../modules/modulos/views/CrearView.vue')

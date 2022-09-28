@@ -1,6 +1,5 @@
 <template>
-    <div>
-        <h1>Este es el layout de modulos</h1>
+    <div class="container">
         <Navbar :links="links"/>
         <router-view></router-view>
     </div>
@@ -17,6 +16,7 @@ export default {
     data() {
         return {
             links: [
+                { to: '/modulos/', name: 'Lista de modulos' },
                 { to: '/modulos/crear', name: 'Crear modulo' },
             ]
         }

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Crear modulo</h2>
+        <h1 class="titulo-vista blanco-a">Crear modulo</h1>
         <form @submit.prevent="guardarModulo">
             <input 
                 type="text" 
@@ -9,10 +9,10 @@
             <select v-model="mina">
                 <option 
                     placeholder="Mina asignada al modulo"
-                    v-for="m in minas"
-                    :key="m"
-                    :value="m">
-                    {{ m }}
+                    v-for="mina_elegida in minas"
+                    :key="mina_elegida"
+                    :value="mina_elegida">
+                    {{ mina_elegida }}
                 </option>
             </select>
             <select v-model="area">
@@ -34,6 +34,8 @@
             </SensorDetail>
         </template>
         <pre>{{ $data }}</pre>
+        <pre>{{ macMayorCero }}</pre>
+        <pre>{{  }}</pre>
     </div>
 </template>
 
@@ -52,26 +54,35 @@ export default {
         }
     }, 
     methods: {
+        reiniciarValores() {
+            this.mac = '';
+            this.mina = '';
+            this.area = '';
+            this.numSensor = 0;
+        },  
         agregarSensor() {
+            if(!this.macMayorCero) return;
             if(this.numSensor < 8) {
-                this.numSensor++;
                 this.sensores.push({
-                    clave: `${this.mac}-${this.numSensor}`
+                    clave: `${this.mac}-${++this.numSensor}`
                 })
             }
-            
+
             console.log(this.numSensor);
+            
         },
         async guardarModulo() {
-            const url = 'http://127.0.0.1:8000/api/modulos/';
-            const modulo = {
-                mac: this.mac,
-                mina: this.mina,
-                area: this.area,
-                sensores: this.sensores
-            }
-
             try{
+                if(!(this.macMayorCero && this.minaMayorCero && this.areaMayorCero)) return;
+                console.log('Si llenaste todos los campos')
+                const url = 'http://127.0.0.1:8000/api/modulos/';
+                const modulo = {
+                    mac: this.mac,
+                    mina: this.mina,
+                    area: this.area,
+                    sensores: this.sensores
+                }
+
                 const res = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -85,6 +96,7 @@ export default {
                 if(!res.ok) throw { status, statusText };
 
                 console.log(json);
+                this.reiniciarValores();
                 this.$router.push({ name: 'modulos-listar' })
             }catch({ status, statusText }){
                 const mensaje = statusText || 'Ocurrio un error';
@@ -94,12 +106,21 @@ export default {
     },
     components: {
         SensorDetail: defineAsyncComponent(
-            () => import('../components/SensorDetailComponent.vue')
+            () => import('../components/SensorFormComponent.vue')
         )
     },
     computed: {
         sensorMayorCero() {
             return this.sensores.length > 0;
+        },
+        minaMayorCero() {
+            return !!this.mina;
+        },
+        macMayorCero() {
+            return !!this.mac;
+        },
+        areaMayorCero() {
+            return !!this.area;
         }
     }
 }

@@ -1,10 +1,13 @@
 <template>
     <div>
-        <h1>Listado de modulos</h1>
-        <Modulo v-for="modulo in modulos"
-            :key="modulo.mac"
-            :modulo="modulo">
-        </Modulo>
+        <h1 class="titulo-vista blanco-a">Listado de modulos</h1>
+        <section class="modulo-listado">
+            <Modulo v-for="modulo in modulos"
+                :key="modulo.mac"
+                :modulo="modulo"
+                @click="verDetalles(modulo.id)">
+            </Modulo>
+        </section>
     </div>
 </template>
 
@@ -25,6 +28,14 @@ export default {
         )
     },
     methods: {
+        verDetalles(moduloId){
+            this.$router.push({
+                name: 'modulos-detalles',
+                params: {
+                    moduloId
+                }
+            })
+        },  
         async obtenerModulos() {
             const url = 'http://127.0.0.1:8000/api/modulos/';
 

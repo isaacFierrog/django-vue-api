@@ -15,9 +15,10 @@ class ModuloSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         sensores = validated_data.pop('sensores')
         modulo = Modulo.objects.create(**validated_data)
-        Sensor.objects.bulk_create(
-            [Sensor(modulo=modulo, **sensor) for sensor in sensores]
-        )
+        if sensores:
+            Sensor.objects.bulk_create(
+                [Sensor(modulo=modulo, **sensor) for sensor in sensores]
+            )
         return modulo
     
         

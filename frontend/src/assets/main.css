@@ -10,4 +10,53 @@ html{
 }
 body{
   font-size: 1.6rem;
+  background-color: rgb(10, 12, 14);
+}
+
+/*Estilos generales*/
+.container{
+  width: 100%;
+  max-width: 100rem;
+  margin: 0 auto;
+}
+.blanco-a{
+  color: rgb(233, 233, 233);
+}
+.blanco-b{
+  color: rgb(185, 182, 182);
+}
+
+/*Estilos vistas*/
+.titulo-vista{
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+/*Estilos componentes*/
+/*Estos modulos*/
+.modulo-listado{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.modulo{
+  flex-basis: calc((100% / 4) - 1rem);
+  margin-bottom: 1.5rem;
+  background-color: rgb(15, 19, 27);
+  border: none;
+  border-top: 2rem solid blue;
+  border-radius: 1rem;
+}
+.modulo:hover{
+  cursor: pointer;
+}
+.modulo-container{
+  padding: 2rem;
+}
+.modulo-titulo{
+  margin-bottom: 2rem;
+}
+.modulo-mac{
+  margin-bottom: 1rem;
+  font-size: 4rem;
 }
