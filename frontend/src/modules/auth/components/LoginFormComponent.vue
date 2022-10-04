@@ -17,6 +17,8 @@
 </template>
 
 <script>
+    import VueJwtDecode from 'vue-jwt-decode'
+
 export default {
     data(){
         return {
@@ -44,7 +46,9 @@ export default {
                 
                 if(!res.ok) throw { status, statusText };
                 
-                console.log(data);
+                const { refresh, access } = data;
+                console.log({ refresh, access });
+                console.log(VueJwtDecode.decode(access));
             }catch({ status, statusText }){
                 const mensaje = statusText || 'Ocurrio un error';
                 console.log(`Error ${status}: ${mensaje}`);

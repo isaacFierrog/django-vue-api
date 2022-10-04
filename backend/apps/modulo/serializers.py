@@ -21,4 +21,40 @@ class ModuloSerializer(serializers.ModelSerializer):
             )
         return modulo
     
+    def update(self, instance, validated_data):
+        sensores = validated_data.pop('sensores')
+        modulo = super().update(instance, validated_data)
+        # Delta + se eliminan sensores, delta - se agregan sensores
+        delta_sensores = modulo.sensores.count() - len(sensores)
+        
+        # Modulo creado sin sensores
+        if not modulo.sensores.exists() and sensores:
+            Sensor.objects.bulk_create(
+                [Sensor(modulo=modulo, **sensor) for sensor in sensores]
+            )
+            
+        # Modulo creado con sensores y se eliminan sensores
+        if delta_sensores > 0:
+            claves_sensores = tuple(map(lambda s:s['clave'], sensores))
+            sensores_eliminados = tuple(
+                filter(
+                    lambda s:s.clave not in claves_sensores, 
+                    modulo.sensores.all()
+                )
+            )
+            modulo.sensores.filter(clave__in=sensores_eliminados).delete()
+        elif delta_sensores < 0:
+            sensores_existentes = modulo.sensores.values_list('clave', flat=True)
+            sensores_nuevos = tuple(
+                filter(
+                    lambda s:s['clave'] not in sensores_existentes, 
+                    sensores    
+                )
+            )
+            Sensor.objects.bulk_create(
+                [Sensor(modulo=modulo, **sensor) for sensor in sensores_nuevos]
+            )
+        
+        return modulo
+    
         
