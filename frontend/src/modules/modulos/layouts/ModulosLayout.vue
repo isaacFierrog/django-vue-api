@@ -16,8 +16,7 @@ export default {
     data() {
         return {
             links: [
-                { to: '/modulos/', name: 'Lista de modulos' },
-                { to: '/modulos/crear', name: 'Crear modulo' },
+                { to: '/modulos/', name: 'Modulos' }
             ]
         }
     }

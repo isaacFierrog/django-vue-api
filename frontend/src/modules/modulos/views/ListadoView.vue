@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1 class="titulo-vista blanco-a">Listado de modulos</h1>
+        <button @click="mostrarModuloForm">Agregar modulo</button>
         <section class="modulo-listado">
             <Modulo v-for="modulo in modulos"
                 :key="modulo.mac"
@@ -8,6 +9,7 @@
                 @click="verDetalles(modulo.id)">
             </Modulo>
         </section>
+        <ModuloForm></ModuloForm>
     </div>
 </template>
 
@@ -25,9 +27,15 @@ export default {
     components: {
         Modulo: defineAsyncComponent(
             () => import('../components/ModuloComponent.vue')
+        ),
+        ModuloForm: defineAsyncComponent(
+            () => import('../components/SensorFormComponent.vue')
         )
     },
     methods: {
+        mostrarModuloForm(){
+            console.log('MOSTRAR FORMULARIO MODULO');
+        },
         verDetalles(moduloId){
             this.$router.push({
                 name: 'modulos-detalles',
