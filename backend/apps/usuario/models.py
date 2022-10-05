@@ -28,10 +28,20 @@ class UsuarioManager(BaseUserManager):
 class Usuario(AbstractBaseUser, PermissionsMixin):
     HERMOSILLO = 1
     CANANEA = 2
-    
     MINAS = (
         (HERMOSILLO, 'HERMOSILLO'),
-        (CANANEA, 'CANANEA')
+        (CANANEA, 'CANANEA'),
+    )
+    
+    A = 1
+    B = 2
+    C = 3
+    D = 4 
+    AREAS = (
+        (A, 'A'),
+        (B, 'B'),
+        (C, 'C'),
+        (D, 'D'),
     )
     
     

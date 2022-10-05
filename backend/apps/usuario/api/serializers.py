@@ -19,8 +19,10 @@ class UsuarioSerializer(serializers.ModelSerializer):
             'zona',
             'password'
         )
+        read_only_fields = ('id',)
         
     def create(self, validated_data):
+        print(validated_data)
         usuario = Usuario(**validated_data)
         usuario.set_password(validated_data['password'])
         usuario.save()

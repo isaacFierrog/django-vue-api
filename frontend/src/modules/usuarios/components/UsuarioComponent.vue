@@ -1,8 +1,12 @@
 <template>
     <article class="usuario">
         <section>
-            <h2 class="usuario__nombre blanco-a txt-upper">ISAAC FIERRO</h2>    
-            <p class="blanco-b">admin@mail.com | HERMOSILLO | A</p>
+            <h2 class="usuario__nombre blanco-a txt-upper">
+                {{ usuario.nombre }} {{ usuario.apellido }}
+            </h2>    
+            <p class="blanco-b">
+                {{ usuario.correo }} | {{ usuario.mina }} | {{ usuario.zona }}
+            </p>
         </section>
         <section class="acciones">
             <i class="fa-solid fa-trash acciones__icono"></i>
@@ -21,7 +25,6 @@ export default {
     },
     methods: {
         editarUsuario(){
-            console.log('Editando al usuario');
             this.$emit('editarUsuario', this.usuario);
         }
     }

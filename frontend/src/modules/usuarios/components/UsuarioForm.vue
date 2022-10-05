@@ -15,16 +15,27 @@
             <input type="password" class="form__input" v-model="password2">
             <p class="blanco-a form__label txt-upper">mina</p>
             <select class="form__input" v-model="mina">
-                <option></option>
+                <option
+                    v-for="(m, index) in minas"
+                    :key="m"
+                    :value="m">
+                    {{ etiquetasMinas[index] }}
+                </option>
             </select>
             <p class="blanco-a form__label txt-upper">zona</p>
             <select class="form__input" v-model="zona">
-                <option></option>
+                <option 
+                    v-for="(z, index) in zonas"
+                    :key="z"
+                    :value="z">
+                    {{ etiquetasZonas[index] }}
+                </option>
             </select>
-            <button class="boton-crear boton-usuario blanco-a txt-upper">
+            <!-- <button class="boton-crear boton-usuario blanco-a txt-upper">
                 Guardar 
                 <i class="fa-solid fa-user"></i>
-            </button>
+            </button> -->
+            <input type="submit" class="boton-crear boton-usuario blanco-a txt-upper" value="Guardar">
         </form>
     </div>
 </template>
@@ -50,14 +61,14 @@ export default {
             mina: '',
             zona: '',
             ocultar: true,
+            minas: [1, 2],
+            zonas: [1,2,3,4],
+            etiquetasMinas: ['HERMOSILLO', 'CANANEA'],
+            etiquetasZonas: ['A', 'B', 'C', 'D']
         }
     },
     methods: {
         async crearUsuario() {
-            console.log('NEL');
-            if(!this.passwordCorrecto) return;
-            console.log('SE PUEDE ENVIAR LA INFO');
-            return;
             try{
                 const url = 'http://127.0.0.1:8000/api/usuarios/';
                 const res = await fetch(url, {
@@ -116,6 +127,16 @@ export default {
                 : (!this.mina)
                 ? false
                 : !!this.zona
+        }
+    },
+    watch: {
+        usuario(newUsuario, oldUsuario){
+            const { correo, nombre, apellido, mina, zona } = newUsuario;
+            this.correo = correo;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.mina = mina;
+            this.zona = zona;
         }
     }
 }

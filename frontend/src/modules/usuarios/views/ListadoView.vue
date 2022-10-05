@@ -5,7 +5,11 @@
             <i class="fa-solid fa-plus"></i>
             Crear usuario
         </button>
-        <Usuario @editarUsuario="editarUsuario"></Usuario>
+        <Usuario
+            v-for="usuario in usuarios"
+            :usuario="usuario" 
+            @editarUsuario="editarUsuario">
+        </Usuario>
         <UsuarioForm 
             :mostrarForm="mostrarForm"
             :usuario="usuarioEditar"
@@ -25,19 +29,39 @@ export default {
             () => import('../components/UsuarioComponent.vue')
         )
     },
+    created() {
+        this.mostrarUsuarios();
+    },
     data() {
         return {
+            usuarios: [],
             mostrarForm: true,
             usuarioEditar: null
         }
     },
     methods: {
+        async mostrarUsuarios() {
+            try{
+                const url = 'http://127.0.0.1:8000/api/usuarios/';
+                const res = await fetch(url);
+                const data = await res.json();
+                const { status, statusText } = res;
+
+                if(!res.ok) throw { status, statusText };
+
+                this.usuarios = data;
+                console.log(this.usuarios);
+            }catch({ status, statusText }){
+                const mensaje = statusText || 'Ocurrio un error';
+                console.log(mensaje);
+            }
+        },
         mostrarFormulario() {
             this.mostrarForm = !this.mostrarForm;
         },
         editarUsuario(usuario){
             // this.usuarioEditar = usuario;
-            console.log('Vamos a editar al usuario');
+            this.usuarioEditar = usuario;
             this.mostrarFormulario();
         }
     }

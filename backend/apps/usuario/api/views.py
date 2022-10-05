@@ -18,6 +18,17 @@ from apps.usuario.authentication_mixin import Authentication
 class UsuarioViewSet(ModelViewSet):
     serializer_class = UsuarioSerializer
     queryset = Usuario.objects.all()
+    
+    def create(self, request, *args, **kwargs):
+        print('HOLA DESDE LA VISTA DE USUARIO')
+        print(request.data)
+        usuario_serializer = self.get_serializer(data=request.data)
+        
+        print(usuario_serializer.is_valid())
+        if(usuario_serializer.is_valid()):
+            print('Los datos son validso')
+        
+        return super().create(request, *args, **kwargs)
 
 
 class Login(TokenObtainPairView):

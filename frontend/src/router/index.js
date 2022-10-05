@@ -31,6 +31,18 @@ const router = createRouter({
           component: () => import('../modules/usuarios/views/ListadoView.vue')
         }
       ]
+    },
+    {
+      path: '/modulos',
+      name: 'modulos',
+      component: () => import('../modules/modulos/layouts/UsuariosLayout.vue'),
+      children: [
+        {
+          path: '',
+          name: 'modulos-listar',
+          component: () => import('../modules/modulos/views/ListadoView.vue')
+        }
+      ]
     }
   ]
 })
