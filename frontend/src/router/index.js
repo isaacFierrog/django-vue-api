@@ -21,31 +21,16 @@ const router = createRouter({
       ]
     },
     {
-      path: '/modulos',
-      name: 'modulos',
-      component: () => import('../modules/modulos/layouts/ModulosLayout.vue'),
+      path: '/usuarios',
+      name: 'usuarios',
+      component: () => import('../modules/usuarios/layouts/UsuariosLayout.vue'),
       children: [
         {
           path: '',
-          name: 'modulos-listar',
-          component: () => import('../modules/modulos/views/ListadoView.vue')
-        },
-        {
-          path: ':moduloId',
-          name: 'modulos-detalles',
-          component: () => import('../modules/modulos/views/DetallesView.vue')
-        },
-        {
-          path: 'crear',
-          name: 'modulos-crear',
-          component: () => import('../modules/modulos/views/CrearView.vue')
+          name: 'usuarios-listar',
+          component: () => import('../modules/usuarios/views/ListadoView.vue')
         }
       ]
-    },
-    {
-      path: '/usuarios',
-      name: 'usuarios',
-      component: () => import('../modules/usuarios/layouts/UsuariosLayout.vue')
     }
   ]
 })

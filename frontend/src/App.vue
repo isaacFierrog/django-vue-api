@@ -11,16 +11,18 @@ export default {
   data() {
     return {
       links: [
-          { to: '/modulos', name: 'Modulos' },
           { to: '/usuarios', name: 'Usuarios' }
       ]
     }
-  }  
+  },
+  mounted() {
+    console.log('Aplicacion iniciada');
+  }
 }
 </script>
 
 <template>
-  <div>
+  <div class="container">
     <Navbar :links="links"/>
     <RouterView />
   </div>

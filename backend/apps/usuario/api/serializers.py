@@ -11,7 +11,14 @@ class TokenSerializer(TokenObtainPairSerializer):
 class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
         model = Usuario
-        fields = '__all__'
+        fields = (
+            'correo',
+            'nombre',
+            'apellido',
+            'mina',
+            'zona',
+            'password'
+        )
         
     def create(self, validated_data):
         usuario = Usuario(**validated_data)

@@ -15,6 +15,11 @@ from apps.usuario.api.serializers import UsuarioSerializer, UsuarioTokenSerializ
 from apps.usuario.authentication_mixin import Authentication
 
 
+class UsuarioViewSet(ModelViewSet):
+    serializer_class = UsuarioSerializer
+    queryset = Usuario.objects.all()
+
+
 class Login(TokenObtainPairView):
     serializer_class = TokenSerializer
     
