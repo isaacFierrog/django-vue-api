@@ -34,6 +34,10 @@ export default {
     props: {
         mostrarForm: {
             type: Boolean
+        },
+        usuario: {
+            type: Object,
+            required: false
         }
     },
     data() {

@@ -6,7 +6,7 @@
         </section>
         <section class="acciones">
             <i class="fa-solid fa-trash acciones__icono"></i>
-            <i class="fa-solid fa-pen-to-square acciones__icono"></i>
+            <i class="fa-solid fa-pen-to-square acciones__icono" @click="editarUsuario"></i>
         </section>
     </article>
 </template>
@@ -20,20 +20,9 @@ export default {
         }
     },
     methods: {
-        async editarUsuario(idUsuario){
-            try{
-                const url = `${idUsuario}`;
-                const res = await fetch(url);
-                const data = await res.json();
-                const { status, statusText } = res;
-
-                if(!res.ok) throw { status, statusText };
-
-                console.log(data);
-            }catch({ status, statusText }){
-                const mensaje = statusText || 'Ocurrio un error';
-                console.log(`Error ${status}: ${mensaje}`);
-            }
+        editarUsuario(){
+            console.log('Editando al usuario');
+            this.$emit('editarUsuario', this.usuario);
         }
     }
 }

@@ -5,13 +5,10 @@
             <i class="fa-solid fa-plus"></i>
             Crear usuario
         </button>
-        <Usuario></Usuario>
-        <Usuario></Usuario>
-        <Usuario></Usuario>
-        <Usuario></Usuario>
-        <Usuario></Usuario>
+        <Usuario @editarUsuario="editarUsuario"></Usuario>
         <UsuarioForm 
             :mostrarForm="mostrarForm"
+            :usuario="usuarioEditar"
             @ocultarFormulario="mostrarFormulario">
         </UsuarioForm>
     </div>
@@ -30,13 +27,18 @@ export default {
     },
     data() {
         return {
-            mostrarForm: true
+            mostrarForm: true,
+            usuarioEditar: null
         }
     },
     methods: {
         mostrarFormulario() {
             this.mostrarForm = !this.mostrarForm;
-            console.log(this.mostrarForm);
+        },
+        editarUsuario(usuario){
+            // this.usuarioEditar = usuario;
+            console.log('Vamos a editar al usuario');
+            this.mostrarFormulario();
         }
     }
 }
