@@ -5,11 +5,16 @@
             <i class="fa-solid fa-plus"></i>
             Crear usuario
         </button>
-        <Usuario
+        <!-- <Usuario
             v-for="usuario in usuarios"
             :usuario="usuario" 
             @editarUsuario="editarUsuario">
-        </Usuario>
+        </Usuario> -->
+        <Usuario></Usuario>
+        <Usuario></Usuario>
+        <Usuario></Usuario>
+        <Usuario></Usuario>
+        <Usuario></Usuario>
         <UsuarioForm 
             :mostrarForm="mostrarForm"
             :usuario="usuarioEditar"

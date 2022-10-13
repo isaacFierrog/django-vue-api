@@ -35,7 +35,7 @@ const router = createRouter({
     {
       path: '/modulos',
       name: 'modulos',
-      component: () => import('../modules/modulos/layouts/UsuariosLayout.vue'),
+      component: () => import('../modules/modulos/layouts/ModulosLayout.vue'),
       children: [
         {
           path: '',

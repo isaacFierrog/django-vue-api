@@ -2,10 +2,11 @@
     <article class="usuario">
         <section>
             <h2 class="usuario__nombre blanco-a txt-upper">
-                {{ usuario.nombre }} {{ usuario.apellido }}
+                
+                isaac fierro
             </h2>    
             <p class="blanco-b">
-                {{ usuario.correo }} | {{ usuario.mina }} | {{ usuario.zona }}
+                isaac@mail.com | HERMOSILLO | A
             </p>
         </section>
         <section class="acciones">
