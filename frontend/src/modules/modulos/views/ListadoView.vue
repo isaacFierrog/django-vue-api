@@ -11,11 +11,6 @@
         </ModuloForm>
         <section class="modulos">
             <Modulo></Modulo>
-            <Modulo></Modulo>
-            <Modulo></Modulo>
-            <Modulo></Modulo>
-            <Modulo></Modulo>
-            <Modulo></Modulo>
         </section>
     </div>
 </template>
@@ -32,7 +27,7 @@ export default {
         )
     },
     created() {
-        this.mostrarModulos();
+        this.mosModulos();
     },
     data() {
         return {
@@ -41,7 +36,7 @@ export default {
         }
     },
     methods: {
-        async mostrarModulos() {
+        async mosModulos() {
             try{
                 const url = 'http://127.0.0.1:8000/api/modulos/';
                 const res = await fetch(url);

@@ -20,8 +20,6 @@ class UsuarioViewSet(ModelViewSet):
     queryset = Usuario.objects.all()
     
     def create(self, request, *args, **kwargs):
-        print('HOLA DESDE LA VISTA DE USUARIO')
-        print(request.data)
         usuario_serializer = self.get_serializer(data=request.data)
         
         print(usuario_serializer.is_valid())

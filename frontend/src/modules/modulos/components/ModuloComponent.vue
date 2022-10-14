@@ -1,10 +1,20 @@
 <template>
     <div class="modulo">
-        <p class="modulo__mina blanco-b txt-upper">hermosillo</p>
-        <h3 class="modulo__mac blanco-a txt-upper">123456789AZS</h3>
-        <p class="modulo__zona blanco-b txt-upper">zona: a</p>
+        <p class="modulo__mina blanco-b txt-upper">{{ modulo.mina }}</p>
+        <h3 class="modulo__mac blanco-a txt-upper">{{ modulo.mac }}</h3>
+        <p class="modulo__zona blanco-b txt-upper">zona: {{ modulo.zona }}</p>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        modulo: {
+            type: Object
+        }
+    }
+}
+</script>
 
 <style scoped>
     .modulo{

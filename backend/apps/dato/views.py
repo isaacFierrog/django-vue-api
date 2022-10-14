@@ -9,6 +9,5 @@ class DatoViewSet(ModelViewSet):
 
     def create(self, request):
         valores = request.data['valores']
-        print(valores)
         valores_serializer = self.get_serializer(data=valores, many=True)
         return super().create(request)

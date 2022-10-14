@@ -2,6 +2,7 @@ from rest_framework import serializers
 from .models import Modulo
 from apps.sensor.serializers import SensorSerializer
 from apps.sensor.models import Sensor
+from apps.dato.serializers import DatoSerializer
 
 
 class ModuloSerializer(serializers.ModelSerializer):
@@ -11,6 +12,18 @@ class ModuloSerializer(serializers.ModelSerializer):
         model = Modulo
         fields = '__all__'
         read_only_fields = ('id',)
+        
+    def to_representation(self, instance):
+        listado_sensores = instance.sensores.all()
+        sensores = []
+        for sensor in listado_sensores:
+            sensor_serializer = SensorSerializer(sensor).data
+            sensor_serializer['datos'] = DatoSerializer(sensor.datos.all(), many=True).data
+            sensores.append(sensor_serializer)
+            
+        obj = super().to_representation(instance)
+        obj['sensores'] = sensores
+        return obj
         
     def create(self, validated_data):
         sensores = validated_data.pop('sensores')

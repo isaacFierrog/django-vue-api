@@ -3,9 +3,9 @@
         <button class="txt-upper blanco-a titulo-modulo boton-cerrar" @click="ocultarFormulario">x</button>
         <h2 class="txt-upper blanco-a titulo-modulo">Crear modulo</h2>
         <form class="form" @submit.prevent="crearModulo">
-            <p class="blanco-a form__label txt-upper">mac</p>
+            <p class="blanco-a form__label">Mac</p>
             <input type="text" class="form__input" v-model="mac">
-            <p class="blanco-a form__label txt-upper">mina</p>
+            <p class="blanco-a form__label">Mina</p>
             <select class="form__input" v-model="mina">
                 <option
                     v-for="(m, index) in minas"
@@ -14,7 +14,7 @@
                     {{ etiquetasMinas[index] }}
                 </option>
             </select>
-            <p class="blanco-a form__label txt-upper">zona</p>
+            <p class="blanco-a form__label">Zona</p>
             <select class="form__input" v-model="zona">
                 <option 
                     v-for="(z, index) in zonas"
