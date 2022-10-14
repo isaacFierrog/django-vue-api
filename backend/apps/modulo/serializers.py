@@ -5,7 +5,7 @@ from apps.sensor.models import Sensor
 
 
 class ModuloSerializer(serializers.ModelSerializer):
-    sensores = SensorSerializer(many=True)
+    sensores = SensorSerializer(many=True, required=False)
     
     class Meta:
         model = Modulo
