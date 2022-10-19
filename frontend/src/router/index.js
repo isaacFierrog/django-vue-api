@@ -41,6 +41,11 @@ const router = createRouter({
           path: '',
           name: 'modulos-listar',
           component: () => import('../modules/modulos/views/ListadoView.vue')
+        },
+        {
+          path: ':id',
+          name: 'modulos-detalle',
+          component: () => import('../modules/modulos/views/DetallesView.vue')
         }
       ]
     }

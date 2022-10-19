@@ -10,7 +10,12 @@
             @ocultarFormulario="mostrarFormulario">
         </ModuloForm>
         <section class="modulos">
-            <Modulo></Modulo>
+            <Modulo 
+                v-for="modulo in modulos"
+                :key="modulo.id"
+                :modulo="modulo"
+                @click="verDetallesModulo(modulo.id)">
+            </Modulo>
         </section>
     </div>
 </template>
@@ -36,6 +41,15 @@ export default {
         }
     },
     methods: {
+        verDetallesModulo(idModulo){
+            console.log(`Este es el modulo: ${idModulo}`);
+            this.$router.push({
+                name: 'modulos-detalle',
+                params: {
+                    id: idModulo
+                }
+            })
+        },
         async mosModulos() {
             try{
                 const url = 'http://127.0.0.1:8000/api/modulos/';
@@ -46,7 +60,7 @@ export default {
                 if(!res.ok) throw { status, statusText };
 
                 this.modulos = data;
-                console.log(this.usuarios);
+                console.log(this.modulos);
             }catch({ status, statusText }){
                 const mensaje = statusText || 'Ocurrio un error';
                 console.log(mensaje);

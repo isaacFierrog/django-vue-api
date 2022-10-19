@@ -3,17 +3,17 @@
         <button class="txt-upper blanco-a titulo-usuario boton-cerrar" @click="ocultarFormulario">x</button>
         <h2 class="txt-upper blanco-a titulo-usuario">Crear usuario</h2>
         <form class="form" @submit.prevent="crearUsuario">
-            <p class="blanco-a form__label txt-upper">correo</p>
+            <p class="blanco-a form__label">Correo</p>
             <input type="email" class="form__input" v-model="correo">
-            <p class="blanco-a form__label txt-upper">nombre</p>
+            <p class="blanco-a form__label">Nombre</p>
             <input type="text" class="form__input" v-model="nombre">
-            <p class="blanco-a form__label txt-upper">apellido</p>
+            <p class="blanco-a form__label">Apellido</p>
             <input type="text" class="form__input" v-model="apellido">
-            <p class="blanco-a form__label txt-upper">password</p>
+            <p class="blanco-a form__label">Contraseña</p>
             <input type="password" class="form__input" v-model="password">
-            <p class="blanco-a form__label txt-upper">verifica password</p>
+            <p class="blanco-a form__label">Verifica password</p>
             <input type="password" class="form__input" v-model="password2">
-            <p class="blanco-a form__label txt-upper">mina</p>
+            <p class="blanco-a form__label">Mina</p>
             <select class="form__input" v-model="mina">
                 <option
                     v-for="(m, index) in minas"
@@ -22,7 +22,7 @@
                     {{ etiquetasMinas[index] }}
                 </option>
             </select>
-            <p class="blanco-a form__label txt-upper">zona</p>
+            <p class="blanco-a form__label">Zona</p>
             <select class="form__input" v-model="zona">
                 <option 
                     v-for="(z, index) in zonas"
