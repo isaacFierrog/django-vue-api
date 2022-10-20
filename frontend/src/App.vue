@@ -11,7 +11,8 @@ export default {
   data() {
     return {
       links: [
-          { to: '/usuarios', name: 'Usuarios' }
+          { to: '/usuarios', name: 'Usuarios' },
+          { to: '/modulos', name: 'Modulos' }
       ]
     }
   },

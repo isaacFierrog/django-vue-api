@@ -16,31 +16,28 @@
             <p class="blanco-a form__label">Mina</p>
             <select class="form__input" v-model="mina">
                 <option
-                    v-for="(m, index) in minas"
+                    v-for="m in minas"
                     :key="m"
                     :value="m">
-                    {{ etiquetasMinas[index] }}
+                    {{ m }}
                 </option>
             </select>
-            <p class="blanco-a form__label">Zona</p>
-            <select class="form__input" v-model="zona">
+            <p class="blanco-a form__label">Area</p>
+            <select class="form__input" v-model="area">
                 <option 
-                    v-for="(z, index) in zonas"
-                    :key="z"
-                    :value="z">
-                    {{ etiquetasZonas[index] }}
+                    v-for="a in areas"
+                    :key="a"
+                    :value="a">
+                    {{ a }}
                 </option>
             </select>
-            <!-- <button class="boton-crear boton-usuario blanco-a txt-upper">
-                Guardar 
-                <i class="fa-solid fa-user"></i>
-            </button> -->
             <input type="submit" class="boton-crear boton-usuario blanco-a txt-upper" value="Guardar">
         </form>
     </div>
 </template>
 
 <script>
+import usuariosServicio from '../../services/usuariosServicio.js';
 export default {
     props: {
         mostrarForm: {
@@ -59,84 +56,66 @@ export default {
             password: '',
             password2: '',
             mina: '',
-            zona: '',
+            area: '',
             ocultar: true,
-            minas: [1, 2],
-            zonas: [1,2,3,4],
-            etiquetasMinas: ['HERMOSILLO', 'CANANEA'],
-            etiquetasZonas: ['A', 'B', 'C', 'D']
+            minas: ['HERMOSILLO', 'CANANEA'],
+            areas: ['A', 'B', 'C', 'D']
         }
     },
     methods: {
         async crearUsuario() {
             try{
-                const url = 'http://127.0.0.1:8000/api/usuarios/';
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json; charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        correo: this.correo,
-                        nombre: this.nombre,
-                        apellido: this.apellido,
-                        password: this.password,
-                        mina: this.mina,
-                        zona: this.zona
-                    })
-                });
-                const data = await res.json();
+                const usuario = {
+                    correo: this.correo,
+                    nombre: this.nombre,
+                    apellido: this.apellido,
+                    password: this.password,
+                    mina: this.mina,
+                    area: this.area
+                };
+
+                const res = await usuariosServicio.create(usuario);
+                const data = await res.data;
                 const { status, statusText } = res;
 
-                if(!res.ok) throw { status, statusText };
+                if(status < 200 || status > 299) throw { status, statusText };
 
-                console.log(data);
+                this.reiniciarCampos();
+                this.actualizarUsuarios();
             }catch({ status, statusText }){
                 const mensaje = statusText || 'Ocurrio un error';
-                console.log(`Error ${status}: ${mensaje}`);
+                console.log({ mensaje, status })
             }
         },  
         ocultarFormulario() {
             this.$emit('ocultarFormulario');
+        },
+        actualizarUsuarios() {
+            this.$emit('actualizarUsuarios');
         },
         reiniciarCampos() {
             this.correo = '';
             this.nombre = '';
             this.apellido = '';
             this.password = '';
+            this.password2 = '';
             this.mina = '';
-            this.zona = '';
+            this.area = '';
         }
     },
     computed: {
         ocultarForm() {
             return { 'ocultar-layout': this.mostrarForm }
-        },
-        passwordCorrecto() {
-            return this.password === this.password2;
-        },
-        camposCompletados() {
-            return (!this.correo)
-                ? false
-                : (!this.nombre)
-                ? false
-                : (!this.apellido)
-                ? false
-                : (!this.password)
-                ? false
-                : (!this.mina)
-                ? false
-                : !!this.zona
         }
     },
     watch: {
         usuario(newUsuario, oldUsuario){
-            const { correo, nombre, apellido, mina, zona } = newUsuario;
+            const { correo, nombre, apellido, mina, area } = newUsuario;
             this.correo = correo;
             this.nombre = nombre;
             this.apellido = apellido;
             this.mina = mina;
-            this.zona = zona;
+            this.area = area;
         }
     }
 }

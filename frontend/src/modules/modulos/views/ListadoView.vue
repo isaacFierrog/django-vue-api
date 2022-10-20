@@ -7,7 +7,8 @@
         </button>
         <ModuloForm
             :mostrarForm="mostrarForm"
-            @ocultarFormulario="mostrarFormulario">
+            @ocultarFormulario="mostrarFormulario"
+            @refrescarModulos="refrescarModulos">
         </ModuloForm>
         <section class="modulos">
             <Modulo 
@@ -22,6 +23,8 @@
 
 <script>
 import { defineAsyncComponent } from 'vue';
+import modulosServicio from '../../services/modulosServicio.js';
+
 export default {
     components: {
         ModuloForm: defineAsyncComponent(
@@ -32,7 +35,7 @@ export default {
         )
     },
     created() {
-        this.mosModulos();
+        this.obtenerModulos();
     },
     data() {
         return {
@@ -50,21 +53,23 @@ export default {
                 }
             })
         },
-        async mosModulos() {
+        async obtenerModulos() {
             try{
-                const url = 'http://127.0.0.1:8000/api/modulos/';
-                const res = await fetch(url);
-                const data = await res.json();
+                const res = await modulosServicio.get();
+                const data = await res.data;
                 const { status, statusText } = res;
 
-                if(!res.ok) throw { status, statusText };
+                if(status < 200 || status > 299) throw { status, statusText };
 
                 this.modulos = data;
-                console.log(this.modulos);
             }catch({ status, statusText }){
                 const mensaje = statusText || 'Ocurrio un error';
-                console.log(mensaje);
+                console.log({ mensaje, status });
             }
+        },
+        refrescarModulos() {
+            console.log('REFRESCANDO MODULOS')
+            this.obtenerModulos();
         },
         mostrarFormulario() {
             this.mostrarForm = !this.mostrarForm;

@@ -26,7 +26,10 @@ class ModuloSerializer(serializers.ModelSerializer):
         return obj
         
     def create(self, validated_data):
-        sensores = validated_data.pop('sensores')
+        sensores = None
+        if validated_data.get('sensores'):
+            sensores = validated_data.pop('sensores')
+            
         modulo = Modulo.objects.create(**validated_data)
         if sensores:
             Sensor.objects.bulk_create(
@@ -35,7 +38,11 @@ class ModuloSerializer(serializers.ModelSerializer):
         return modulo
     
     def update(self, instance, validated_data):
-        sensores = validated_data.pop('sensores')
+        sensores = None
+        
+        if validated_data.get('sensores'):
+            sensores = validated_data.pop('sensores')
+            
         modulo = super().update(instance, validated_data)
         # Delta + se eliminan sensores, delta - se agregan sensores
         delta_sensores = modulo.sensores.count() - len(sensores)

@@ -26,22 +26,15 @@ class UsuarioManager(BaseUserManager):
 
 
 class Usuario(AbstractBaseUser, PermissionsMixin):
-    HERMOSILLO = 1
-    CANANEA = 2
     MINAS = (
-        (HERMOSILLO, 'HERMOSILLO'),
-        (CANANEA, 'CANANEA'),
+        ('HERMOSILLO', 'HERMOSILLO'),
+        ('CANANEA', 'CANANEA')
     )
-    
-    A = 1
-    B = 2
-    C = 3
-    D = 4 
     AREAS = (
-        (A, 'A'),
-        (B, 'B'),
-        (C, 'C'),
-        (D, 'D'),
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+        ('D', 'D'),
     )
     
     
@@ -57,14 +50,17 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         'Apellido del usuario',
         max_length=100
     )
-    mina = models.PositiveIntegerField(
+    mina = models.CharField(
         'Mina a la que es asignado el usuario',
+        max_length=150,
         choices=MINAS,
         blank=True,
         null=True
     )
-    zona = models.PositiveIntegerField(
-        'Zona de la mina a la que es asignado el usuario',
+    area = models.CharField(
+        'Area de la mina a la que es asignado el usuario',
+        max_length=150,
+        choices=AREAS,
         blank=True,
         null=True
     )
@@ -81,4 +77,4 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
         db_table = 'usuarios'
     
     def __str__(self):
-        return f'{self.nombre} | {self.apellido}'
+        return f'<{self.nombre} | {self.apellido}>'

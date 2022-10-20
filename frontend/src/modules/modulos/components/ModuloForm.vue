@@ -8,25 +8,21 @@
             <p class="blanco-a form__label">Mina</p>
             <select class="form__input" v-model="mina">
                 <option
-                    v-for="(m, index) in minas"
+                    v-for="m) in minas"
                     :key="m"
                     :value="m">
-                    {{ etiquetasMinas[index] }}
+                    {{ m }}
                 </option>
             </select>
-            <p class="blanco-a form__label">Zona</p>
-            <select class="form__input" v-model="zona">
+            <p class="blanco-a form__label">Area</p>
+            <select class="form__input" v-model="area">
                 <option 
-                    v-for="(z, index) in zonas"
-                    :key="z"
-                    :value="z">
-                    {{ etiquetasZonas[index] }}
+                    v-for="a in areas"
+                    :key="a"
+                    :value="a">
+                    {{ a }}
                 </option>
             </select>
-            <!-- <button class="boton-crear boton-usuario blanco-a txt-upper">
-                Guardar 
-                <i class="fa-solid fa-user"></i>
-            </button> -->
             <section class="sensores">
                 <button class="sensores__boton blanco-a" @click="eliminarSensores">-</button>
                 <p>Sensores: {{ numSensores }}</p>
@@ -38,6 +34,7 @@
 </template>
 
 <script>
+import modulosServicio from '../../services/modulosServicio.js';
     export default {
         props: {
             mostrarForm: {
@@ -48,14 +45,15 @@
             return {
                 mac: '',
                 mina: '',
-                zona: '',
+                area: '',
                 ocultar: true,
                 numSensores: 0,
                 maxSensores: 8,
-                minas: [1, 2],
-                zonas: [1,2,3,4],
-                etiquetasMinas: ['HERMOSILLO', 'CANANEA'],
-                etiquetasZonas: ['A', 'B', 'C', 'D']
+                minas: [
+                    'HERMOSILLO', 
+                    'CANANEA'
+                ],
+                areas: ['A', 'B', 'C', 'D']
             }
         },
         methods: {
@@ -68,24 +66,19 @@
             },
             async crearModulo() {
                 try{
-                    const url = 'http://127.0.0.1:8000/api/modulos/';
-                    const res = await fetch(url, {
-                        method: 'POST',
-                        headers: {
-                            'Content-type': 'application/json; charset=utf-8'
-                        },
-                        body: JSON.stringify({
-                            mac: this.mac,
-                            mina: this.mina,
-                            zona: this.zona
-                        })
-                    });
-                    const data = await res.json();
+                    const modulo = {
+                        mac: this.mac,
+                        mina: this.mina,
+                        area: this.area
+                    }
+                    const res = await modulosServicio.create(modulo);
+                    const data = await res.data;
                     const { status, statusText } = res;
     
-                    if(!res.ok) throw { status, statusText };
-    
-                    console.log(data);
+                    if(status < 200 || status > 299) throw { status, statusText };
+                    
+                    this.reiniciarCampos();
+                    this.refrescarModulos();
                 }catch({ status, statusText }){
                     const mensaje = statusText || 'Ocurrio un error';
                     console.log(`Error ${status}: ${mensaje}`);
@@ -94,13 +87,14 @@
             ocultarFormulario() {
                 this.$emit('ocultarFormulario');
             },
+            refrescarModulos() {
+                this.$emit('refrescarModulos')
+            },
             reiniciarCampos() {
-                this.correo = '';
-                this.nombre = '';
-                this.apellido = '';
-                this.password = '';
+                this.mac = '';
                 this.mina = '';
-                this.zona = '';
+                this.area = '';
+                this.numSensores = 0;
             }
         },
         computed: {

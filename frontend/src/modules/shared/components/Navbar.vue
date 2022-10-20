@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="nav">
         <CustomLink 
             v-for="link in links"
             :key="link.to"
@@ -31,5 +31,8 @@ export default {
 <style scoped>
     .router-link-exact-active{
         color: #2e7454;
+    }
+    .nav{
+        display: flex;
     }
 </style>

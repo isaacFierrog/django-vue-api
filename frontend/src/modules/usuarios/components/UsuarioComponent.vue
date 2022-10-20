@@ -1,12 +1,11 @@
 <template>
     <article class="usuario">
         <section>
-            <h2 class="usuario__nombre blanco-a txt-upper">
-                
-                isaac fierro
-            </h2>    
+            <h3 class="usuario__nombre blanco-a txt-upper">
+                {{ usuario.nombre }} {{ usuario.apellido }}
+            </h3>    
             <p class="blanco-b">
-                isaac@mail.com | HERMOSILLO | A
+                {{ usuario.correo }} | {{ usuario.mina }} | {{ usuario.area }}
             </p>
         </section>
         <section class="acciones">
